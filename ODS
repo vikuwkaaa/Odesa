@@ -1,0 +1,26 @@
+import requests
+
+def create_github_repository(repo_name, token):
+    headers = {
+        'Authorization': f'token {token}',
+        'Accept': 'application/vnd.github.v3+json'
+    }
+    data = {
+        'name': repo_name,
+        'auto_init': True  # Automatically initialize with a README file
+    }
+    url = 'https://api.github.com/user/repos'
+    
+    response = requests.post(url, headers=headers, json=data)
+    
+    if response.status_code == 201:
+        print(f"Repository '{repo_name}' created successfully!")
+    else:
+        print(f"Failed to create repository '{repo_name}'. Status code: {response.status_code}")
+        print(response.json())
+
+# Replace 'YOUR_REPO_NAME' and 'YOUR_PERSONAL_ACCESS_TOKEN' with your desired repository name and GitHub personal access token
+repo_name = 'Odesa'
+token = 'ODS'
+
+create_github_repository(repo_name, token)
